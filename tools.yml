@@ -1,0 +1,20 @@
+---
+- hosts: local
+  become: yes
+  tasks:
+    - name: install tools
+      yum:
+        name: "{{ item }}" 
+        state: latest
+      loop:
+        - vim
+        - git
+        - gzip
+        - pigz
+        - nginx
+        - apache
+      register: output  
+    - debug:
+         msg: "{{ ansible_host }} "
+    - fail:
+         msg: output.stdout
